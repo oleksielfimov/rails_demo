@@ -32,11 +32,13 @@ $
 	 
 
 # File marks:
-'0  38  0  C:\Sites\railsinstaller_demo\config\routes.rb
-'1  57  31  C:\Sites\railsinstaller_demo\config\routes.rb
-'2  1  0  C:\Program Files (x86)\gVimPortable\App\vim\vim72\doc\usr_toc.txt
+'0  1  0  C:\Sites\railsinstaller_demo\Getfile
+'1  38  0  C:\Sites\railsinstaller_demo\config\routes.rb
+'2  57  31  C:\Sites\railsinstaller_demo\config\routes.rb
+'3  1  0  C:\Program Files (x86)\gVimPortable\App\vim\vim72\doc\usr_toc.txt
 
 # Jumplist (newest first):
+-'  1  0  C:\Sites\railsinstaller_demo\Getfile
 -'  38  0  C:\Sites\railsinstaller_demo\config\routes.rb
 -'  16  0  C:\Sites\railsinstaller_demo\config\
 -'  1  0  C:\Sites\railsinstaller_demo\config\
@@ -95,8 +97,51 @@ $
 -'  1  0  c:\Sites\railsinstaller_demo\script\rails
 -'  1  0  C:\Program Files (x86)\gVimPortable\App\vim\vim72\doc\usr_toc.txt
 -'  1  0  C:\Program Files (x86)\gVimPortable\App\vim\vim72\doc\usr_toc.txt
+-'  38  0  C:\Sites\railsinstaller_demo\config\routes.rb
+-'  16  0  C:\Sites\railsinstaller_demo\config\
+-'  1  0  C:\Sites\railsinstaller_demo\config\
+-'  12  0  C:\Sites\railsinstaller_demo\
+-'  1  0  C:\Sites\railsinstaller_demo\
+-'  8  0  C:\Sites\railsinstaller_demo\
+-'  57  31  C:\Sites\railsinstaller_demo\config\routes.rb
+-'  61  0  C:\Sites\railsinstaller_demo\config\routes.rb
+-'  15  0  c:\Sites\railsinstaller_demo\config\environments\test.rb
+-'  43  0  C:\Sites\railsinstaller_demo\config\routes.rb
+-'  1  0  c:\Sites\railsinstaller_demo\config\environment.rb
+-'  1  0  c:\Sites\railsinstaller_demo\config\boot.rb
+-'  55  0  c:\Sites\railsinstaller_demo\config\application.rb
+-'  1  0  c:\Sites\railsinstaller_demo\Rakefile
+-'  1  0  c:\Sites\railsinstaller_demo\.gitignore
+-'  1  0  c:\Sites\railsinstaller_demo\config.ru
+-'  1  0  c:\Sites\railsinstaller_demo\script\rails
+-'  1  0  C:\Program Files (x86)\gVimPortable\App\vim\vim72\doc\usr_toc.txt
+-'  1  0  C:\Program Files (x86)\gVimPortable\App\vim\vim72\doc\usr_toc.txt
+-'  15  0  c:\Sites\railsinstaller_demo\config\environments\test.rb
+-'  1  0  c:\Sites\railsinstaller_demo\config\environment.rb
+-'  1  0  c:\Sites\railsinstaller_demo\config\boot.rb
+-'  55  0  c:\Sites\railsinstaller_demo\config\application.rb
+-'  1  0  c:\Sites\railsinstaller_demo\Rakefile
+-'  1  0  c:\Sites\railsinstaller_demo\.gitignore
+-'  1  0  c:\Sites\railsinstaller_demo\config.ru
+-'  1  0  c:\Sites\railsinstaller_demo\script\rails
+-'  1  0  C:\Program Files (x86)\gVimPortable\App\vim\vim72\doc\usr_toc.txt
+-'  1  0  C:\Program Files (x86)\gVimPortable\App\vim\vim72\doc\usr_toc.txt
+-'  38  0  C:\Sites\railsinstaller_demo\config\routes.rb
+-'  16  0  C:\Sites\railsinstaller_demo\config\
+-'  1  0  C:\Sites\railsinstaller_demo\config\
+-'  12  0  C:\Sites\railsinstaller_demo\
+-'  1  0  C:\Sites\railsinstaller_demo\
+-'  8  0  C:\Sites\railsinstaller_demo\
+-'  57  31  C:\Sites\railsinstaller_demo\config\routes.rb
+-'  61  0  C:\Sites\railsinstaller_demo\config\routes.rb
+-'  15  0  c:\Sites\railsinstaller_demo\config\environments\test.rb
+-'  43  0  C:\Sites\railsinstaller_demo\config\routes.rb
+-'  1  0  c:\Sites\railsinstaller_demo\config\environment.rb
 
 # History of marks within files (newest to oldest):
+
+> C:\Sites\railsinstaller_demo\Getfile
+	"	1	0
 
 > C:\Sites\railsinstaller_demo\config\routes.rb
 	"	38	0
