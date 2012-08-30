@@ -11,6 +11,8 @@
 $
 
 # Command Line History (newest to oldest):
+:wqa
+:e Gemfile.lock
 :'<,'>
 
 # Search String History (newest to oldest):
@@ -22,22 +24,28 @@ $
 # Input Line History (newest to oldest):
 
 # Registers:
-""0	CHAR	0
+"0	CHAR	0
 	 
 "1	LINE	0
 	
 "2	LINE	0
 	
-"-	CHAR	0
-	 
+""-	CHAR	0
+	2
 
 # File marks:
-'0  1  0  C:\Sites\railsinstaller_demo\Getfile
-'1  38  0  C:\Sites\railsinstaller_demo\config\routes.rb
-'2  57  31  C:\Sites\railsinstaller_demo\config\routes.rb
-'3  1  0  C:\Program Files (x86)\gVimPortable\App\vim\vim72\doc\usr_toc.txt
+'0  98  3  C:\Sites\railsinstaller_demo\Gemfile.lock
+'1  1  0  C:\Sites\railsinstaller_demo\Getfile
+'2  38  0  C:\Sites\railsinstaller_demo\config\routes.rb
+'3  57  31  C:\Sites\railsinstaller_demo\config\routes.rb
+'4  1  0  C:\Program Files (x86)\gVimPortable\App\vim\vim72\doc\usr_toc.txt
 
 # Jumplist (newest first):
+-'  98  3  C:\Sites\railsinstaller_demo\Gemfile.lock
+-'  57  18  C:\Sites\railsinstaller_demo\Gemfile.lock
+-'  24  18  C:\Sites\railsinstaller_demo\Gemfile.lock
+-'  11  0  C:\Sites\railsinstaller_demo\Gemfile
+-'  1  0  C:\Sites\railsinstaller_demo\Gemfile
 -'  1  0  C:\Sites\railsinstaller_demo\Getfile
 -'  38  0  C:\Sites\railsinstaller_demo\config\routes.rb
 -'  16  0  C:\Sites\railsinstaller_demo\config\
@@ -131,14 +139,18 @@ $
 -'  1  0  C:\Sites\railsinstaller_demo\config\
 -'  12  0  C:\Sites\railsinstaller_demo\
 -'  1  0  C:\Sites\railsinstaller_demo\
--'  8  0  C:\Sites\railsinstaller_demo\
--'  57  31  C:\Sites\railsinstaller_demo\config\routes.rb
--'  61  0  C:\Sites\railsinstaller_demo\config\routes.rb
--'  15  0  c:\Sites\railsinstaller_demo\config\environments\test.rb
--'  43  0  C:\Sites\railsinstaller_demo\config\routes.rb
--'  1  0  c:\Sites\railsinstaller_demo\config\environment.rb
 
 # History of marks within files (newest to oldest):
+
+> C:\Sites\railsinstaller_demo\Gemfile
+	"	11	0
+
+> C:\Sites\railsinstaller_demo\Gemfile.lock
+	"	98	3
+	^	98	4
+	.	57	4
+	+	57	4
+	+	57	4
 
 > C:\Sites\railsinstaller_demo\Getfile
 	"	1	0
