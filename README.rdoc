@@ -1,261 +1,254 @@
-== Welcome to Rails
+= ey
 
-Rails is a web-application framework that includes everything needed to create
-database-backed web applications according to the Model-View-Control pattern.
+== Install
 
-This pattern splits the view (also called the presentation) into "dumb"
-templates that are primarily responsible for inserting pre-built data in between
-HTML tags. The model contains the "smart" domain objects (such as Account,
-Product, Person, Post) that holds all the business logic and knows how to
-persist themselves to a database. The controller handles the incoming requests
-(such as Save New Account, Update Product, Show Post) by manipulating the model
-and directing data to the view.
+Install engineyard like any other ruby gem:
 
-In Rails, the model is handled by what's called an object-relational mapping
-layer entitled Active Record. This layer allows you to present the data from
-database rows as objects and embellish these data objects with business logic
-methods. You can read more about Active Record in
-link:files/vendor/rails/activerecord/README.html.
+    gem install engineyard
 
-The controller and view are handled by the Action Pack, which handles both
-layers by its two parts: Action View and Action Controller. These two layers
-are bundled in a single package due to their heavy interdependence. This is
-unlike the relationship between the Active Record and Action Pack that is much
-more separate. Each of these packages can be used independently outside of
-Rails. You can read more about Action Pack in
-link:files/vendor/rails/actionpack/README.html.
+Note: Don't add engineyard to your application's Gemfile. The engineyard gem is not made to be a part of your application and may cause version conflicts with other parts of rails.
 
+== Login
 
-== Getting Started
+The first command you run will notice that you are not logged in and will ask you for your Engine Yard email and password.
 
-1. At the command prompt, create a new Rails application:
-       <tt>rails new myapp</tt> (where <tt>myapp</tt> is the application name)
+== Configuration
 
-2. Change directory to <tt>myapp</tt> and start the web server:
-       <tt>cd myapp; rails server</tt> (run with --help for options)
+The ey.yml file allows options to be saved for each environment to which an application is deployed. Here's an example ey.yml file in RAILS_ROOT/config/ey.yml:
 
-3. Go to http://localhost:3000/ and you'll see:
-       "Welcome aboard: You're riding Ruby on Rails!"
+    $ cat config/ey.yml
+    ---
+    environments:
+      env_production:
+        migrate: false                            # run migration command on every deploy
+        migration_command: rake fancy:migrate     # default migration command
+        branch: deploy                            # default branch to deploy
+        default: true                             # make this environment default
+        bundle_without: test development mygroup  # exclude groups on bundle install
+        copy_exclude:                             # don't rsync the following dirs
+        - .git
+        maintenance_on_restart: false             # show maintenance page during app restart (default: false except for glassfish and mongrel)
+        maintenance_on_migrate: false             # show maintenance page during migrations (default: true)
+        precompile_assets: true                   # enables rails assets precompilation (default: inferred using app/assets and config/application.rb)
+        ignore_database_adapter_warning: true     # hide database adapter warning if you don't use MySQL or PostgreSQL (default: false)
 
-4. Follow the guidelines to start developing your application. You can find
-the following resources handy:
+Many of the options in ey.yml will only work if the file is committed to your application repository. Make sure to commit this file.
 
-* The Getting Started Guide: http://guides.rubyonrails.org/getting_started.html
-* Ruby on Rails Tutorial Book: http://www.railstutorial.org/
+== Commands
 
+=== ey deploy
 
-== Debugging Rails
+This command must be run within the current directory containing the app to be
+deployed. If ey.yml specifies a default branch then the ref parameter can be
+omitted. Furthermore, if a default branch is specified but a different
+command is supplied the deploy will fail unless --ignore-default-branch
+is used.
 
-Sometimes your application goes wrong. Fortunately there are a lot of tools that
-will help you debug it and get it back on the rails.
-
-First area to check is the application log files. Have "tail -f" commands
-running on the server.log and development.log. Rails will automatically display
-debugging and runtime information to these files. Debugging info will also be
-shown in the browser on requests from 127.0.0.1.
-
-You can also log your own messages directly into the log file from your code
-using the Ruby logger class from inside your controllers. Example:
-
-  class WeblogController < ActionController::Base
-    def destroy
-      @weblog = Weblog.find(params[:id])
-      @weblog.destroy
-      logger.info("#{Time.now} Destroyed Weblog ID ##{@weblog.id}!")
-    end
-  end
-
-The result will be a message in your log file along the lines of:
-
-  Mon Oct 08 14:22:29 +1000 2007 Destroyed Weblog ID #1!
-
-More information on how to use the logger is at http://www.ruby-doc.org/core/
-
-Also, Ruby documentation can be found at http://www.ruby-lang.org/. There are
-several books available online as well:
-
-* Programming Ruby: http://www.ruby-doc.org/docs/ProgrammingRuby/ (Pickaxe)
-* Learn to Program: http://pine.fm/LearnToProgram/ (a beginners guide)
-
-These two books will bring you up to speed on the Ruby language and also on
-programming in general.
-
-
-== Debugger
-
-Debugger support is available through the debugger command when you start your
-Mongrel or WEBrick server with --debugger. This means that you can break out of
-execution at any point in the code, investigate and change the model, and then,
-resume execution! You need to install ruby-debug to run the server in debugging
-mode. With gems, use <tt>sudo gem install ruby-debug</tt>. Example:
-
-  class WeblogController < ActionController::Base
-    def index
-      @posts = Post.all
-      debugger
-    end
-  end
-
-So the controller will accept the action, run the first line, then present you
-with a IRB prompt in the server window. Here you can do things like:
-
-  >> @posts.inspect
-  => "[#<Post:0x14a6be8
-          @attributes={"title"=>nil, "body"=>nil, "id"=>"1"}>,
-       #<Post:0x14a6620
-          @attributes={"title"=>"Rails", "body"=>"Only ten..", "id"=>"2"}>]"
-  >> @posts.first.title = "hello from a debugger"
-  => "hello from a debugger"
-
-...and even better, you can examine how your runtime objects actually work:
-
-  >> f = @posts.first
-  => #<Post:0x13630c4 @attributes={"title"=>nil, "body"=>nil, "id"=>"1"}>
-  >> f.
-  Display all 152 possibilities? (y or n)
-
-Finally, when you're ready to resume execution, you can enter "cont".
-
-
-== Console
-
-The console is a Ruby shell, which allows you to interact with your
-application's domain model. Here you'll have all parts of the application
-configured, just like it is when the application is running. You can inspect
-domain models, change values, and save to the database. Starting the script
-without arguments will launch it in the development environment.
-
-To start the console, run <tt>rails console</tt> from the application
-directory.
+If ey.yml does not specify a default migrate choice, you will be prompted to
+specify a migration choice. A different command can later be specified via
+--migrate "ruby do_migrations.rb". Migrations can also be skipped entirely
+by using --no-migrate.
 
 Options:
 
-* Passing the <tt>-s, --sandbox</tt> argument will rollback any modifications
-  made to the database.
-* Passing an environment name as an argument will load the corresponding
-  environment. Example: <tt>rails console production</tt>.
+  -r, [--ref=REF] [--branch=] [--tag=]      # Git ref to deploy. May be a branch, a tag, or a SHA.
+  -c, [--account=ACCOUNT]                   # Name of the account in which the environment can be found
+  -a, [--app=APP]                           # Name of the application to deploy
+  -e, [--environment=ENVIRONMENT]           # Environment in which to deploy this application
+  -m, [--migrate=MIGRATE]                   # Run migrations via [MIGRATE], defaults to 'rake db:migrate'; use --no-migrate to avoid running migrations
+  -v, [--verbose]                           # Be verbose
+      [--ignore-default-branch]             # Force a deploy of the specified branch even if a default is set
+      [--ignore-bad-master]                 # Force a deploy even if the master is in a bad state
+      [--extra-deploy-hook-options key:val] # Additional options to be made available in deploy hooks (in the 'config' hash)
+                                            # Add more keys as follows: --extra-deploy-hook-options key1:val1 key2:val2
 
-To reload your controllers and models after launching the console run
-<tt>reload!</tt>
 
-More information about irb can be found at:
-link:http://www.rubycentral.org/pickaxe/irb.html
+=== ey status
+
+Show the status of most recent deployment of the specified application and environment. This action only informational and will not change your application.
+
+Options:
+
+  -c, [--account=ACCOUNT]                   # Name of the account in which the environment can be found
+  -a, [--app=APP]                           # Name of the application containing the environment
+  -e, [--environment=ENVIRONMENT]           # Name of the environment with the desired deployment
+
+=== ey environments
+
+By default, environments for this app are displayed. The --all option will display all environments, including those for this app.
+
+Options:
+
+  -c, [--account=ACCOUNT]                   # Name of the account in which the environment can be found
+  -a, [--app=APP]                           # Name of the application containing the environments
+  -e, [--environment=ENVIRONMENT]           # Show only environments matching named environment
+  -s, [--simple]                            # Print each environment name on its own on a new line
+  -a, [--all]                               # Show all environments, not just ones associated with this application.
 
 
-== dbconsole
+=== ey logs
 
-You can go to the command line of your database directly through <tt>rails
-dbconsole</tt>. You would be connected to the database with the credentials
-defined in database.yml. Starting the script without arguments will connect you
-to the development database. Passing an argument will connect you to a different
-database, like <tt>rails dbconsole production</tt>. Currently works for MySQL,
-PostgreSQL and SQLite 3.
+Displays Engine Yard configuration logs for all servers in the environment. If recipes were uploaded to the environment & run, their logs will also be displayed beneath the main configuration logs.
 
-== Description of Contents
+Options:
 
-The default directory structure of a generated Ruby on Rails application:
+  -e, [--environment=ENVIRONMENT]  # Environment with the interesting logs
+  -c, [--account=ACCOUNT]          # Name of the account in which the environment can be found
 
-  |-- app
-  |   |-- assets
-  |       |-- images
-  |       |-- javascripts
-  |       `-- stylesheets
-  |   |-- controllers
-  |   |-- helpers
-  |   |-- mailers
-  |   |-- models
-  |   `-- views
-  |       `-- layouts
-  |-- config
-  |   |-- environments
-  |   |-- initializers
-  |   `-- locales
-  |-- db
-  |-- doc
-  |-- lib
-  |   `-- tasks
-  |-- log
-  |-- public
-  |-- script
-  |-- test
-  |   |-- fixtures
-  |   |-- functional
-  |   |-- integration
-  |   |-- performance
-  |   `-- unit
-  |-- tmp
-  |   |-- cache
-  |   |-- pids
-  |   |-- sessions
-  |   `-- sockets
-  `-- vendor
-      |-- assets
-          `-- stylesheets
-      `-- plugins
+=== ey rebuild
 
-app
-  Holds all the code that's specific to this particular application.
+Engine Yard's main configuration run occurs on all servers. Mainly used to fix failed configuration of new or existing servers, or to update servers to latest Engine Yard stack
+(e.g. to apply an Engine Yard supplied security patch).
 
-app/assets
-  Contains subdirectories for images, stylesheets, and JavaScript files.
+Note that uploaded recipes are also run after the main configuration run has successfully completed.
 
-app/controllers
-  Holds controllers that should be named like weblogs_controller.rb for
-  automated URL mapping. All controllers should descend from
-  ApplicationController which itself descends from ActionController::Base.
+Options:
 
-app/models
-  Holds models that should be named like post.rb. Models descend from
-  ActiveRecord::Base by default.
+  -e, [--environment=ENVIRONMENT]  # Environment to rebuild
+  -c, [--account=ACCOUNT]          # Name of the account in which the environment can be found
 
-app/views
-  Holds the template files for the view that should be named like
-  weblogs/index.html.erb for the WeblogsController#index action. All views use
-  eRuby syntax by default.
+=== ey rollback
 
-app/views/layouts
-  Holds the template files for layouts to be used with views. This models the
-  common header/footer method of wrapping views. In your views, define a layout
-  using the <tt>layout :default</tt> and create a file named default.html.erb.
-  Inside default.html.erb, call <% yield %> to render the view using this
-  layout.
+Uses code from previous deploy in the "/data/APP_NAME/releases" directory on remote server(s) to restart application servers.
 
-app/helpers
-  Holds view helpers that should be named like weblogs_helper.rb. These are
-  generated for you automatically when using generators for controllers.
-  Helpers can be used to wrap functionality for your views into methods.
+Options:
 
-config
-  Configuration files for the Rails environment, the routing map, the database,
-  and other dependencies.
+  -v, [--verbose]                  # Be verbose
+  -a, [--app=APP]                  # Name of the application to roll back
+  -e, [--environment=ENVIRONMENT]  # Environment in which to roll back the application
+  -c, [--account=ACCOUNT]          # Name of the account in which the environment can be found
 
-db
-  Contains the database schema in schema.rb. db/migrate contains all the
-  sequence of Migrations for your schema.
+=== ey recipes apply
 
-doc
-  This directory is where your application documentation will be stored when
-  generated using <tt>rake doc:app</tt>
+This is similar to 'ey rebuild' except Engine Yard's main configuration step is skipped.
 
-lib
-  Application specific libraries. Basically, any kind of custom code that
-  doesn't belong under controllers, models, or helpers. This directory is in
-  the load path.
+Options:
 
-public
-  The directory available for the web server. Also contains the dispatchers and the
-  default HTML files. This should be set as the DOCUMENT_ROOT of your web
-  server.
+  -e, [--environment=ENVIRONMENT]  # Environment in which to apply recipes
+  -c, [--account=ACCOUNT]          # Name of the account in which the environment can be found
 
-script
-  Helper scripts for automation and generation.
+=== ey recipes upload
 
-test
-  Unit and functional tests along with fixtures. When using the rails generate
-  command, template test files will be generated for you and placed in this
-  directory.
+The current directory should contain a subdirectory named "cookbooks" to be uploaded.
 
-vendor
-  External libraries that the application depends on. Also includes the plugins
-  subdirectory. If the app has frozen rails, those gems also go here, under
-  vendor/rails/. This directory is in the load path.
+Options:
+
+  -e, [--environment=ENVIRONMENT]  # Environment that will receive the recipes
+  -c, [--account=ACCOUNT]          # Name of the account in which the environment can be found
+      [--apply]                    # Apply the recipes (same as above) immediately after uploading
+  -f, [--file=FILE]                # Specify a gzipped tar file (.tgz) for upload instead of cookbooks/ directory
+
+=== ey recipes download
+
+The recipes will be unpacked into a directory called "cookbooks" in the current directory.
+
+If the cookbooks directory already exists, an error will be raised.
+
+Options:
+
+  -e, [--environment=ENVIRONMENT]  # Environment for which to download the recipes
+  -c, [--account=ACCOUNT]          # Name of the account in which the environment can be found
+
+=== ey web enable
+
+Remove the maintenance page for this application in the given environment.
+
+Options:
+
+  -v, [--verbose]                  # Be verbose
+  -a, [--app=APP]                  # Name of the application whose maintenance page will be removed
+  -e, [--environment=ENVIRONMENT]  # Environment on which to take down the maintenance page
+  -c, [--account=ACCOUNT]          # Name of the account in which the environment can be found
+
+=== ey web disable
+
+The maintenance page is taken from the app currently being deployed. This means that you can customize maintenance pages to tell users the reason for downtime on every particular deploy.
+
+Maintenance pages searched for in order of decreasing priority:
+  * public/maintenance.html.custom
+  * public/maintenance.html.tmp
+  * public/maintenance.html
+  * public/system/maintenance.html.default
+
+Options:
+
+  -v, [--verbose]                  # Be verbose
+  -a, [--app=APP]                  # Name of the application whose maintenance page will be put up
+  -e, [--environment=ENVIRONMENT]  # Environment on which to put up the maintenance page
+  -c, [--account=ACCOUNT]          # Name of the account in which the environment can be found
+
+
+=== ey web restart
+
+Restarts the application servers for the given application. Enables maintenance pages if it would be enabled during a normal deploy. Respects the maintenance_on_restart ey.yml configuration.
+
+Options:
+
+  -v, [--verbose]                  # Be verbose
+  -a, [--app=APP]                  # Name of the application to restart
+  -e, [--environment=ENVIRONMENT]  # Name of the environment to restart
+  -c, [--account=ACCOUNT]          # Name of the account in which the app and environment can be found
+
+=== ey ssh
+
+If a command is supplied, it will be run, otherwise a session will be opened. The application master is used for environments with clusters. Option --all requires a command to be supplied and runs it on all servers.
+
+Note: this command is a bit picky about its ordering. To run a command with arguments on all servers, like "rm -f /some/file", you need to order it like so:
+
+  $ ey ssh "rm -f /some/file" -e my-environment --all
+
+Options:
+
+      [--utilities=one two three]  # Run command on the utility servers with the given names. If no names are given, run on all utility servers.
+      [--app-servers]              # Run command on all application servers
+      [--db-servers]               # Run command on the database servers
+      [--db-master]                # Run command on the master database server
+  -A, [--all]                      # Run command on all servers
+      [--db-slaves]                # Run command on the slave database servers
+  -e, [--environment=ENVIRONMENT]  # Name of the environment to ssh into
+  -c, [--account=ACCOUNT]          # Name of the account in which the environment can be found
+
+=== ey launch
+
+Open the application in a browser.
+
+Options:
+
+  -c, [--account=ACCOUNT]          # Name of the account in which the environment can be found
+  -a, [--app=APP]                  # Name of the application to launch
+  -e, [--environment=ENVIRONMENT]  # Name of the environment for the application
+
+=== ey whoami
+
+Who am I logged in as? Prints the name and email of the current logged in user.
+
+=== ey login
+
+Log in and verify access to EY Cloud. Use logout first if you need to switch user accounts.
+
+=== ey logout
+
+Remove the current API key from ~/.eyrc or env variable $EYRC
+
+
+== API Client
+
+See https://github.com/engineyard/engineyard-cloud-client for the API client library.
+
+== DEBUG
+
+The API commands will print internal information if $DEBUG is set:
+
+  $ DEBUG=1 ey environments --all
+         GET  https://cloud.engineyard.com/api/v2/apps
+      Params  {"no_instances"=>"true"}
+     Headers  {"User-Agent"=>"EngineYard/2.0.0 EngineYardCloudClient/1.0.5",
+              "Accept"=>"application/json",
+              "X-EY-Cloud-Token"=>"YOURTOKEN"}
+    Response  {"apps"=>
+                [{"environments"=>[],
+                  "name"=>"myapp",
+                  "repository_uri"=>"git@github.com:myaccount/myapp.git",
+                  "app_type_id"=>"rails3",
+                  "account"=>{"name"=>"myaccount", "id"=>1234},
+                  "id"=>12345}]}

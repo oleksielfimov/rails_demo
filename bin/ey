@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+$:.unshift(File.expand_path('../../lib', __FILE__))
+require 'engineyard/cli'
+
+begin
+  EY::CLI.start
+rescue
+  exit(1)
+end
